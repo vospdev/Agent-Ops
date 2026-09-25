@@ -2,32 +2,15 @@
 
 ## What
 
-Provision the DigitalOcean droplet, its Cloud Firewall, and its DNS record
-via **Terraform**, then harden SSH access, configure the swapfile, install
-Docker and Caddy, and register a self-hosted GitHub Actions runner scoped
-strictly to deployment.
+Create the DigitalOcean droplet, harden SSH access, configure the firewall
+and swapfile, install Docker and Caddy, and register a self-hosted GitHub
+Actions runner scoped strictly to deployment.
 
 ## Why
 
-Resolves the two biggest risks flagged in architecture review — undersized
-RAM causing OOM crashes, and running PR evals on the same host that serves
-the live app — and makes the "disposable infrastructure" framing in the
-Cloud spec literally true: the droplet, firewall, and DNS record become
-recreatable with `terraform apply` instead of by hand. Terraform is scoped
-to just these three resources deliberately — Vercel/Neon/GitHub stay as
-managed platforms with no IaC layer, since that's the whole point of
-choosing them.
-
-## Terraform scope (deliberately narrow)
-
-- **In scope**: DigitalOcean droplet, DigitalOcean Cloud Firewall, DNS
-  record pointing at the droplet's public IP
-- **Out of scope**: Vercel, Neon, GitHub repo/Actions config, Langfuse —
-  these stay as manually-managed platform accounts; Terraforming them
-  would undercut the reason they were chosen (avoid infra work)
-- State: local `.tfstate` file, gitignored — fine at single-user prototype
-  scale, no remote backend needed
-- Lives in `infra/terraform/`
+This resolves the two biggest risks flagged in architecture review:
+undersized RAM causing OOM crashes, and running PR evals on the same host
+that serves the live app.
 
 ## Current behavior
 
@@ -41,7 +24,6 @@ reboot.
 
 ## Technical context
 
-- Provisioning: **Terraform**, DigitalOcean provider (`digitalocean/digitalocean`)
 - Basic droplet: **2GB RAM / 1 vCPU ($12/mo)**, Ubuntu 24.04 LTS
 - **2–4GB swapfile** configured at provisioning time (backstop for memory
   spikes, not a substitute for the 2GB tier)
@@ -61,8 +43,6 @@ reboot.
 
 ## Acceptance criteria
 
-- [ ] Droplet, Cloud Firewall, and DNS record all provisioned via `terraform apply` (not the DO web console)
-- [ ] `terraform destroy` + `terraform apply` successfully recreates an equivalent droplet (proves the disposable-infra claim)
 - [ ] Droplet reachable via key-based SSH only (password auth disabled)
 - [ ] Swapfile active (2–4GB)
 - [ ] Firewall restricted to ports 80, 443, 22 only
@@ -70,4 +50,3 @@ reboot.
 - [ ] Caddy serving a valid Let's Encrypt certificate on the DNS record
 - [ ] Self-hosted GitHub Actions runner registered, labeled deploy-only, survives reboot
 - [ ] Bearer token generated and stored in both GitHub Actions secrets and Vercel env vars
-- [ ] `.tfstate` and `.tfvars` (secrets) gitignored; `.tf` files committed

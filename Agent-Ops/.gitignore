@@ -1,10 +1,6 @@
 .env
 .env.*
 !.env.example
-*.tfstate
-*.tfstate.*
-*.tfvars
-.terraform/
 node_modules/
 __pycache__/
 *.pyc

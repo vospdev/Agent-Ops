@@ -149,17 +149,3 @@ Template:
   reload session.
 - `git commit` and PR descriptions in this repo carry attribution lines
   required by this Claude Code session — do not omit them.
-- **Explain, then do.** Before each concrete step (a command, a resource
-  provisioned, a file written), say in a sentence or two what it's about
-  to do and why, then do it. This is a learning project — narrating each
-  step is part of the point, not overhead to cut.
-
-## Infrastructure-as-code scope
-
-Terraform is used **only** for the DigitalOcean droplet, its Cloud
-Firewall, and the DNS record pointing at it (`infra/terraform/`). This
-makes the "disposable infrastructure" framing literally true — the
-droplet is recreatable with `terraform apply`. Vercel, Neon, GitHub, and
-Langfuse stay as manually-managed platform accounts with no IaC layer —
-Terraforming them would undercut the reason they were chosen (avoid infra
-work). `.tfstate` and `.tfvars` are gitignored; `.tf` files are committed.
