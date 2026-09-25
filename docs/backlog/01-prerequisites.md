@@ -30,8 +30,10 @@ Accounts needed:
 - **Vercel** — console hosting/deploy
 - **Neon** — Postgres (domain data)
 - **Anthropic Console** — API key for Claude
-- **DigitalOcean** — droplet hosting (note: $200 / 60-day signup credit
-  available — confirm it's applied)
+- **DigitalOcean** — droplet hosting (note: as of July 15, 2026, new
+  accounts get a $5 credit for 90 days — not the earlier $200/60-day
+  credit. Confirm whichever is actually available on the account and
+  apply it; it no longer meaningfully offsets the $12/mo droplet cost)
 - **Langfuse Cloud** — observability (free tier, 50K observations/month) —
   generate API keys
 
@@ -40,10 +42,10 @@ manager — never hardcoded, never committed.
 
 ## Acceptance criteria
 
-- [ ] GitHub account confirmed
-- [ ] Vercel account confirmed
-- [ ] Neon account confirmed, project created
-- [ ] Anthropic Console account confirmed, API key generated
-- [ ] DigitalOcean account confirmed, $200/60-day credit applied
-- [ ] Langfuse Cloud account confirmed, API keys generated
-- [ ] Secrets storage approach decided and documented (`.env` gitignored, or secrets manager)
+- [x] GitHub account confirmed
+- [x] Vercel account confirmed
+- [x] Neon account confirmed, project created
+- [x] Anthropic Console account confirmed, API key generated
+- [x] DigitalOcean account confirmed, $5/90-day signup credit applied
+- [x] Langfuse Cloud account confirmed, API keys generated
+- [x] Secrets storage approach decided and documented (`.env` gitignored, or secrets manager)

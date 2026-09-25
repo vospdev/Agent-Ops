@@ -252,3 +252,41 @@ rather than trust it to happen as a standalone habit.
 **Résumé-ready line:** Established a git-tracked development log process
 tied to ticket acceptance criteria, capturing decisions and skills gained
 throughout an infrastructure build for reuse in technical writeups.
+
+---
+
+## Sept 24, 2026 — Ticket 01: Prerequisite Accounts and Installs
+
+**Built:** Confirmed all six external accounts needed before infrastructure
+or code work starts: GitHub, Vercel, Neon, Anthropic Console (API key),
+DigitalOcean, and Langfuse Cloud (API keys generated). Decided the secrets
+storage approach (`.env`, gitignored) and committed a `.gitignore` to the
+repo enforcing it.
+
+**Skills/tools touched:** GitHub Desktop (repo clone/commit/push), DigitalOcean
+billing/credits, Langfuse Cloud project and API key setup, GitHub fine-grained
+personal access tokens.
+
+**New vocabulary/concepts:** fine-grained GitHub PAT scoping (repository
+and permission-level access control), egress/git proxy policy (a
+sandboxed dev environment can restrict which repos it's authorized to
+push to, independent of any token supplied).
+
+**Decision made + why:** Pushed the initial repo scaffold via GitHub
+Desktop instead of directly from the cloud dev session, after the
+session's git proxy denied a direct push (the target repo wasn't yet in
+its authorized-repository set) — a fine-grained PAT alone couldn't
+override that policy layer, so the local-machine path was the pragmatic
+unblock rather than chasing the session setting further that day.
+
+**Lesson / gotcha:** DigitalOcean's signup credit changed as of July 15,
+2026 — new accounts now get $5 for 90 days, not the $200/60-day credit
+the original spec assumed. Caught and corrected in
+`docs/backlog/01-prerequisites.md` before it caused confusion later; a
+reminder that infra-vendor pricing/promo terms are worth re-verifying
+right before acting on them, not just trusting an earlier spec.
+
+**Résumé-ready line:** Stood up the full external-service account and
+secrets foundation (GitHub, Vercel, Neon, Anthropic, DigitalOcean,
+Langfuse Cloud) for a cloud-deployed AI agent platform, including
+resolving a sandboxed dev environment's git egress policy restriction.
